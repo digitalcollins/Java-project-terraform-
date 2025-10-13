@@ -16,48 +16,48 @@ resource "aws_default_vpc" "default" {
 
 # default subnet
 resource "aws_default_subnet" "default_subnet" {
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1"
 
   tags = {
-    Name = "Default subnet for us-east-1a"
+    Name = "Default subnet for us-east-1"
   }
 }
 
 
 # creating security group 
-resource "aws_security_group" "tech365-sg" {
-  name        = "tech365-sg"
+resource "aws_security_group" "digitalcollins-sg" {
+  name        = "digitalcollins-sg"
   description = "Allow TLS inbound traffic and all outbound traffic"
   vpc_id      = aws_default_vpc.default.id
 
   tags = {
-    Name = "tech365-sg"
+    Name = "digitalcollins-sg"
   }
 }
 # ingress 
 resource "aws_vpc_security_group_ingress_rule" "ssh" {
-  security_group_id = aws_security_group.tech365-sg.id
+  security_group_id = aws_security_group.digitalcollins-sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 22
   ip_protocol       = "tcp"
   to_port           = 22
 }
 resource "aws_vpc_security_group_ingress_rule" "http" {
-  security_group_id = aws_security_group.tech365-sg.id
+  security_group_id = aws_security_group.digitalcollins-sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 80
   ip_protocol       = "tcp"
   to_port           = 80
 }
 resource "aws_vpc_security_group_ingress_rule" "jenkins" {
-  security_group_id = aws_security_group.tech365-sg.id
+  security_group_id = aws_security_group.digitalcollins-sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 8081
   ip_protocol       = "tcp"
   to_port           = 8081
 }
 resource "aws_vpc_security_group_ingress_rule" "prometheus" {
-  security_group_id = aws_security_group.tech365-sg.id
+  security_group_id = aws_security_group.digitalcollins-sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 9090
   ip_protocol       = "tcp"
@@ -65,14 +65,14 @@ resource "aws_vpc_security_group_ingress_rule" "prometheus" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "grafana" {
-  security_group_id = aws_security_group.tech365-sg.id
+  security_group_id = aws_security_group.digitalcollins-sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 3000
   ip_protocol       = "tcp"
   to_port           = 3000
 }
 resource "aws_vpc_security_group_ingress_rule" "app-port" {
-  security_group_id = aws_security_group.tech365-sg.id
+  security_group_id = aws_security_group.digitalcollins-sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 8080
   ip_protocol       = "tcp"
@@ -80,7 +80,7 @@ resource "aws_vpc_security_group_ingress_rule" "app-port" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "node-exporter" {
-  security_group_id = aws_security_group.tech365-sg.id
+  security_group_id = aws_security_group.digitalcollins-sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 9100
   ip_protocol       = "tcp"
@@ -88,7 +88,7 @@ resource "aws_vpc_security_group_ingress_rule" "node-exporter" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "blackbox-exporter" {
-  security_group_id = aws_security_group.tech365-sg.id
+  security_group_id = aws_security_group.digitalcollins-sg.id
   cidr_ipv4         = "0.0.0.0/0"
   from_port         = 9115
   ip_protocol       = "tcp"
@@ -97,7 +97,7 @@ resource "aws_vpc_security_group_ingress_rule" "blackbox-exporter" {
 
 
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
-  security_group_id = aws_security_group.tech365-sg.id
+  security_group_id = aws_security_group.digitalcollins-sg.id
   cidr_ipv4         = "0.0.0.0/0"
   ip_protocol       = "-1" # semantically equivalent to all ports
 }
@@ -159,7 +159,7 @@ resource "aws_instance" "webserver" {
   instance_type = var.instance_type
   associate_public_ip_address = true
   key_name      = var.key_name
-  vpc_security_group_ids = [aws_security_group.tech365-sg.id]
+  vpc_security_group_ids = [aws_security_group.digitalcollins-sg.id]
   iam_instance_profile = aws_iam_instance_profile.test_profile.name
   user_data = file("script.sh")
 

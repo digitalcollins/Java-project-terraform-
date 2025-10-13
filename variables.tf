@@ -1,6 +1,6 @@
 variable "ami" {
     type = string
-    default = "ami-020cba7c55df1f615"
+    default = "ami-0360c520857e3138f"
 }
 
 variable "instance_type" {
@@ -10,5 +10,5 @@ variable "instance_type" {
 
 variable "key_name" {
     type = string
-    default="tech365key"
+    default="digitalcollins-key"
 }
