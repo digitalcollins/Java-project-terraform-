@@ -10,5 +10,5 @@ variable "instance_type" {
 
 variable "key_name" {
     type = string
-    default="digitalcollins-key"
+    default="AKIAZL6HH7ZE57AN7LPV"
 }
