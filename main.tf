@@ -10,16 +10,16 @@ terraform{
 # default vpc 
 resource "aws_default_vpc" "default" {
   tags = {
-    Name = "Default VPC"
+    Name = "Digitalcollins-vpc"
   }
 }
 
 # default subnet
 resource "aws_default_subnet" "default_subnet" {
-  availability_zone = "us-east-1"
+  availability_zone = "us-east-1a"
 
   tags = {
-    Name = "Default subnet for us-east-1"
+    Name = "Digitalcollins-subnet"
   }
 }
 
@@ -169,6 +169,13 @@ resource "aws_instance" "webserver" {
     delete_on_termination = true   
   }
   tags = {
-    Name = "Web Server"
+    Name = "digitalcollins-server"
   }
 }
+
+
+#terraform commands
+# terraform init
+terraform plan
+terraform apply
+# terraform destroy

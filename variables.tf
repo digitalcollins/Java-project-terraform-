@@ -5,10 +5,10 @@ variable "ami" {
 
 variable "instance_type" {
     type = string
-    default = "t2.2xlarge"
+    default = "t3.micro"
 }
 
 variable "key_name" {
     type = string
-    default="AKIAZL6HH7ZE57AN7LPV"
+    default="digitalcollins-key"
 }
