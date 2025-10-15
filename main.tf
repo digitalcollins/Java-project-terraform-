@@ -172,10 +172,3 @@ resource "aws_instance" "webserver" {
     Name = "digitalcollins-server"
   }
 }
-
-
-#terraform commands
-# terraform init
-terraform plan
-terraform apply
-# terraform destroy
